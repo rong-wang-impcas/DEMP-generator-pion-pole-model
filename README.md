@@ -9,11 +9,12 @@ Using ROOT to execute the codes:
 
 Using ACLiC to compile and execute
 >root -l
+
 [0] .x test.cpp+
 
 # In this version (v1.0), the beam-crossing angle is implemented.
 The electron goes to the z direction, consistent with the fixed-target experiment.
-see ``PionExculsiveElectroproduction()'' or ``SetBeamCrossAngle(double _angle)''
+see PionExculsiveElectroproduction() or SetBeamCrossAngle(double _angle)
 for details of how the crossing angle is implemented.
 
 

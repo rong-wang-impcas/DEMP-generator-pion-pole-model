@@ -1,7 +1,7 @@
 # DEMP-generator-pion-pole-model
 Event generator for deep exclusive pion production based on pion pole formula and pion form factor
 
-Event generation of  e p --> e' n pi^+  data
+Event generation of  e p --> e' n pi{^+}  data
 
 # Usage
 Using ROOT to execute the codes:

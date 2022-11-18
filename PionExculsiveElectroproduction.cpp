@@ -86,6 +86,8 @@ int PionExculsiveElectroproduction::Generate(int N = 20000){
 
 	cout<<"    To generate "<<N<<" events..."<<endl;
 
+	eBeam->Boost(-(*BoostToEIC));   /// boost to the proton-rest frame
+
 	for(int i=0; i<N; ){
 		xB = random->Uniform(xBmin, xBmax);
 		Q2 = random->Uniform(Q2min, Q2max);
@@ -121,12 +123,14 @@ int PionExculsiveElectroproduction::Generate(int N = 20000){
 		double Epip = nv + mN - En;
 		double Pn = sqrt(En*En - mN*mN);
 		double Ppip = sqrt(Epip*Epip - mpi*mpi);
-		eBeam->Boost(-(*BoostToEIC));   /// boost to the proton-rest frame
 		TLorentzVector virtualPhoton = (*eBeam) - (*elec_out);
 		TVector3 elec_out_v3 = elec_out->Vect(); 
 		TVector3 virtualPhoton_v3 = virtualPhoton.Vect();
 		TVector3 normal_v3 = virtualPhoton_v3.Cross(elec_out_v3);
 		TVector3 leptonplane_transverse_v3 = normal_v3.Cross(virtualPhoton_v3);
+		//// check the kinematics
+		if(virtualPhoton_v3.Mag()>=(Ppip+Pn))continue;
+		if(virtualPhoton_v3.Mag()<=fabs(Ppip-Pn))continue;
 		double costheta_pip = (virtualPhoton_v3.Mag2()+Ppip*Ppip-Pn*Pn) /2.0 /virtualPhoton_v3.Mag() /Ppip;
 		double costheta_n = (virtualPhoton_v3.Mag2()+Pn*Pn-Ppip*Ppip) /2.0 /virtualPhoton_v3.Mag() /Pn;
 		double sintheta_pip = sqrt(1 - costheta_pip*costheta_pip);
@@ -147,9 +151,6 @@ int PionExculsiveElectroproduction::Generate(int N = 20000){
 		pip_out->Boost(*BoostToEIC);
 		neut_out->Boost(*BoostToEIC);
 
-
-		eBeam->Boost(*BoostToEIC);   /// the elec. beam boost back to the collider frame!!!
-
 		//// calculate the differential cross sections
 		d4sigma = d4sigma_dQ2dxBdtdPhi(Q2, xB, t, 0);
 		d3sigma = d3sigma_dQ2dxBdt(Q2, xB, t);
@@ -158,6 +159,7 @@ int PionExculsiveElectroproduction::Generate(int N = 20000){
 		i++;
 	}
 
+	eBeam->Boost(*BoostToEIC);   /// the elec. beam boost back to the collider frame!!!
 
 	cout<<"    Event generation done! "<<endl;
 	return N;
@@ -168,7 +170,7 @@ void PionExculsiveElectroproduction::MakeROOTFile(char *filename){
 	//// create the output file and the output TTree
 	cout<<"    Creating the output file: "<<filename<<endl;
 	fout = new TFile(filename,"recreate");
-	tree = new TTree("tree","Exclusive pion electroproduction - RW");
+	tree = new TTree("tree","Exclusive pion electroproduction");
 	tree->Branch("xB", &xB, "xB/D");
 	tree->Branch("Q2", &Q2, "Q2/D");
 	tree->Branch("t", &t, "t/D");

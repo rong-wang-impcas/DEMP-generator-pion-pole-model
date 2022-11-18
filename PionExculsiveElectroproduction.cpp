@@ -180,9 +180,9 @@ void PionExculsiveElectroproduction::MakeROOTFile(char *filename){
 	tree->Branch("s", &s, "s/D");
 	tree->Branch("d4sigma", &d4sigma, "d4sigma/D");
 	tree->Branch("d3sigma", &d3sigma, "d3sigma/D");
-	tree->Branch("elec_out", elec_out, 32000, 0);
-	tree->Branch("neut_out", neut_out, 32000, 0);
-	tree->Branch("pip_out" , pip_out , 32000, 0);
+	tree->Branch("elec_out", "TLorentzVector", elec_out);
+	tree->Branch("neut_out", "TLorentzVector", neut_out);
+	tree->Branch("pip_out" , "TLorentzVector", pip_out);
 }
 void PionExculsiveElectroproduction::SetOutputFileName(char *filename){
 	strcpy(strFileName, filename);

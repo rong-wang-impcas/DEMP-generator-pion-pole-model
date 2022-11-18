@@ -5,7 +5,7 @@ Event generation of  e p --> e' n pi$^+$  data
 
 # Usage
 Using ROOT to execute the codes:
->root -l test.cpp
+>root -l -q test.cpp
 
 Using ACLiC to compile and execute
 >root -l

@@ -12,6 +12,12 @@ Using ACLiC to compile and execute
 
 [0] .x test.cpp+
 
+Using g++ to compile and execute
+>sed 's/test()/main()/' test.cpp > test2.cpp
+>g++ test2.cpp -o run_sim `root-config --cflags` `root-config --libs`
+>./run_sim
+
+
 # In this version (v1.0), the beam-crossing angle is implemented.
 The electron goes to the z direction, consistent with the fixed-target experiment.
 see PionExculsiveElectroproduction() or SetBeamCrossAngle(double _angle)

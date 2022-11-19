@@ -5,7 +5,7 @@
 #include"PionExculsiveElectroproduction.cpp"
 
 
-void test(){
+int test(){
 
 	PionExculsiveElectroproduction demp_pion;
 
@@ -28,6 +28,7 @@ void test(){
 
 	//cout<<demp_pion.GetElecBeamEnergy()<<"  "<<demp_pion.GetProtBeamEnergy()<<"  "<<demp_pion.GetBeamCrossAngle()<<endl;
 
+	return 0;
 }
 
 

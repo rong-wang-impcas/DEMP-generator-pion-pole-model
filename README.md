@@ -4,17 +4,19 @@ Event generator for deep exclusive pion production based on pion pole formula an
 Event generation of  e p --> e' n pi$^+$  data
 
 # Usage
-Using ROOT to execute the codes:
+**Using ROOT to execute the codes:**
 >root -l -q test.cpp
 
-Using ACLiC to compile and execute
+**Using ACLiC to compile and execute:**
 >root -l
 
 [0] .x test.cpp+
 
-Using g++ to compile and execute
+**Using g++ to compile and execute:**
 >sed 's/test()/main()/' test.cpp > test2.cpp
+
 >g++ test2.cpp -o run_sim `root-config --cflags` `root-config --libs`
+
 >./run_sim
 
 

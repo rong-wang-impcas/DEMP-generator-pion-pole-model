@@ -15,7 +15,7 @@ Event generation of  e p --> e' n pi$^+$  data
 **Using g++ to compile and execute:**
 >sed 's/test()/main()/' test.cpp > test2.cpp
 
->g++ test2.cpp -o run_sim `root-config --cflags` `root-config --libs`
+>g++ test2.cpp -o run_sim \`root-config --cflags\` \`root-config --libs\`
 
 >./run_sim
 

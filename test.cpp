@@ -9,7 +9,7 @@ int test(){
 
 	PionExculsiveElectroproduction demp_pion;
 
-	demp_pion.SetTmax(0.5);
+	demp_pion.SetTmax(0.7);
 	demp_pion.SetTmin(0.01);
 	demp_pion.SetQ2max(50);
 	demp_pion.SetQ2min(1);

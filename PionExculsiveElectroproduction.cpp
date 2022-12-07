@@ -87,6 +87,9 @@ int PionExculsiveElectroproduction::Generate(int N = 20000){
 	cout<<"    To generate "<<N<<" events..."<<endl;
 
 	eBeam->Boost(-(*BoostToEIC));   /// boost to the proton-rest frame
+	TVector3 zdirection = eBeam->Vect();
+	TVector3 ydirection(0, 1, 0);
+	TVector3 xdirection(zdirection.Z(), 0, -zdirection.X());
 
 	for(int i=0; i<N; ){
 		xB = random->Uniform(xBmin, xBmax);
@@ -117,7 +120,10 @@ int PionExculsiveElectroproduction::Generate(int N = 20000){
 		double sintheta_e = sqrt(1 - costheta_e*costheta_e);
 		double ephi = random->Uniform(0, 2*PI);
 		double emom = sqrt(eOutE*eOutE - me*me);
-		elec_out->SetXYZT(emom*sintheta_e*cos(ephi), emom*sintheta_e*sin(ephi), emom*costheta_e, eOutE);
+		TVector3 emom_v3 = emom*sintheta_e*cos(ephi) * xdirection.Unit();
+		emom_v3 += emom*sintheta_e*sin(ephi) * ydirection.Unit();
+		emom_v3 += emom*costheta_e * zdirection.Unit();
+		elec_out->SetXYZT(emom_v3.X(), emom_v3.Y(), emom_v3.Z(), eOutE);
 		// calculate the kinematics of the final-state neutron and pion^+ in the proton-rest frame
 		double En = mN - t/2.0/mN;
 		double Epip = nv + mN - En;

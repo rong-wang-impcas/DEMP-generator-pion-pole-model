@@ -268,7 +268,7 @@ double PionExculsiveElectroproduction::d3sigma_dQ2dxBdt(double _Q2, double _xB, 
 	/// in the natural unit, i.e., GeV^-6
 	double sigma = flux * (dsigmaT() + epsilon*dsigmaL());
 	/// return in the unit of nb/GeV^4
-	return 3.8809e5 * sigma;
+	return sigma;
 }
 double PionExculsiveElectroproduction::N_factor(double _W2, double _Q2){
 	double W2_mN2 = _W2 - mN*mN;
@@ -280,22 +280,26 @@ double PionExculsiveElectroproduction::g_piNN(double _t){
 double PionExculsiveElectroproduction::PhotonFlux(double _y, double _xB, double _epsilon, double _Q2){
 	return alpha*_y*_y*(1-_xB)/2.0/PI/_xB/(1-_epsilon)/_Q2; 
 }
+//// return cross-section in the unit of nb/GeV^2.
 double PionExculsiveElectroproduction::dsigmaL(){
 	double nfactor = N_factor(W2, Q2);
 	double ffpion = FF_pion(Q2);
 	double gpinn = g_piNN(t);
 	double pipole = -t / (t-mpi*mpi) / (t-mpi*mpi);
 	//// this is the Born-term contribution of pion pole, valid at small |t|.
-	return 16*PI*alpha * gpinn*gpinn * pipole * Q2 * ffpion*ffpion / nfactor;
+	return 3.8809e5 * 16*PI*alpha * gpinn*gpinn * pipole * Q2 * ffpion*ffpion / nfactor;
 }
+//// return cross-section in the unit of nb/GeV^2.
 double PionExculsiveElectroproduction::dsigmaT(){
-	return 0; //// the transverse component can be ignored at very small |t| and high Q2
+	return 3.8809e5 * 0; //// the transverse component can be ignored at very small |t| and high Q2
 }
+//// return cross-section in the unit of nb/GeV^2.
 double PionExculsiveElectroproduction::dsigmaTT(){
-	return 0;
+	return 3.8809e5 * 0;
 }
+//// return cross-section in the unit of nb/GeV^2.
 double PionExculsiveElectroproduction::dsigmaLT(){
-	return 0;
+	return 3.8809e5 * 0;
 }
 
 

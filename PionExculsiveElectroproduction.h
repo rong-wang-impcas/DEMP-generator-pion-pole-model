@@ -47,6 +47,26 @@ class PionExculsiveElectroproduction{
 		void Setymax(double max);
 
 
+		double GetQ2();
+		double GetW2();
+		double GetxB();
+		double Gett();
+		double Gety();
+		double Gets();
+		double Getepsilon();
+		void SetQ2(double);
+		void SetW2(double);
+		void SetxB(double);
+		void Sett(double);
+
+
+		double N_factor(double _W2, double _Q2);
+		double g_piNN(double _t);
+		double PhotonFlux(double _y, double _xB, double _epsilon, double _Q2);
+		double dsigmaT();
+		double dsigmaL();
+		double dsigmaTT();
+		double dsigmaLT();
 
 	private:
 		double me;
@@ -106,11 +126,6 @@ class PionExculsiveElectroproduction{
 
 		void MakeROOTFile(char *filename);
 
-		double N_factor(double _W2, double _Q2);
-		double g_piNN(double _t);
-		double PhotonFlux(double _y, double _xB, double _epsilon, double _Q2);
-		double dsigmaT();
-		double dsigmaL();
 };
 
 

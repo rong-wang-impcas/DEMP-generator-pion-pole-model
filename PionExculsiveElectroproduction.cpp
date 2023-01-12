@@ -64,6 +64,14 @@ PionExculsiveElectroproduction::PionExculsiveElectroproduction(){
 	kine = new KineCal();
 	/// phase space generator
 	eventGenerator = new TGenPhaseSpace();
+
+	Q2 = 10;
+	W2 = 25;
+	xB = Q2 / (W2+Q2-mN*mN);
+	t = -0.2;
+	y = Q2 / xB / (s-mN*mN);
+	epsilon = kine->calEpsilon(y, Q2, s);
+
 }
 PionExculsiveElectroproduction::~PionExculsiveElectroproduction(){
 	tree->Write();
@@ -272,9 +280,6 @@ double PionExculsiveElectroproduction::g_piNN(double _t){
 double PionExculsiveElectroproduction::PhotonFlux(double _y, double _xB, double _epsilon, double _Q2){
 	return alpha*_y*_y*(1-_xB)/2.0/PI/_xB/(1-_epsilon)/_Q2; 
 }
-double PionExculsiveElectroproduction::dsigmaT(){
-	return 0; //// the transverse component can be ignored at very small |t| and high Q2
-}
 double PionExculsiveElectroproduction::dsigmaL(){
 	double nfactor = N_factor(W2, Q2);
 	double ffpion = FF_pion(Q2);
@@ -282,6 +287,15 @@ double PionExculsiveElectroproduction::dsigmaL(){
 	double pipole = -t / (t-mpi*mpi) / (t-mpi*mpi);
 	//// this is the Born-term contribution of pion pole, valid at small |t|.
 	return 16*PI*alpha * gpinn*gpinn * pipole * Q2 * ffpion*ffpion / nfactor;
+}
+double PionExculsiveElectroproduction::dsigmaT(){
+	return 0; //// the transverse component can be ignored at very small |t| and high Q2
+}
+double PionExculsiveElectroproduction::dsigmaTT(){
+	return 0;
+}
+double PionExculsiveElectroproduction::dsigmaLT(){
+	return 0;
 }
 
 
@@ -296,5 +310,38 @@ void PionExculsiveElectroproduction::SetTmin(double min){Tmin = min;}
 void PionExculsiveElectroproduction::SetTmax(double max){Tmax = max;}
 void PionExculsiveElectroproduction::Setymin(double min){ymin = min;}
 void PionExculsiveElectroproduction::Setymax(double max){ymax = max;}
+
+
+
+
+
+double PionExculsiveElectroproduction::GetQ2(){return Q2;}
+double PionExculsiveElectroproduction::GetW2(){return W2;}
+double PionExculsiveElectroproduction::GetxB(){return xB;}
+double PionExculsiveElectroproduction::Gett(){return t;}
+double PionExculsiveElectroproduction::Gety(){return y;}
+double PionExculsiveElectroproduction::Gets(){return s;}
+double PionExculsiveElectroproduction::Getepsilon(){return epsilon;}
+void PionExculsiveElectroproduction::SetQ2(double _Q2){
+	Q2 = _Q2;
+	xB = Q2 / (W2+Q2-mN*mN);
+	y = Q2 / xB / (s-mN*mN);
+	epsilon = kine->calEpsilon(y, Q2, s);
+}
+void PionExculsiveElectroproduction::SetW2(double _W2){
+	W2 = _W2;
+	xB = Q2 / (W2+Q2-mN*mN);
+	y = Q2 / xB / (s-mN*mN);
+	epsilon = kine->calEpsilon(y, Q2, s);
+}
+void PionExculsiveElectroproduction::SetxB(double _xB){
+	xB = _xB;
+	W2 = (1.0/xB-1)*Q2 + mN*mN;
+	y = Q2 / xB / (s-mN*mN);
+	epsilon = kine->calEpsilon(y, Q2, s);
+}
+void PionExculsiveElectroproduction::Sett(double _t){t=_t;}
+
+
 
 

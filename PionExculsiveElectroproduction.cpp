@@ -291,7 +291,9 @@ double PionExculsiveElectroproduction::dsigmaL(){
 }
 //// return cross-section in the unit of nb/GeV^2.
 double PionExculsiveElectroproduction::dsigmaT(){
-	return 3.8809e5 * 0; //// the transverse component can be ignored at very small |t| and high Q2
+	return 1000 * (0.74/Q2 + 1.25/Q2/Q2 + 0.57*(-t)/pow(-t+mpi*mpi, 2) )   / pow(W2-mN*mN, 2)*pow(1.95*1.95-mN*mN, 2);  // in unit of nb/GeV2
+	return 1000 * (4.5/Q2 + 2.0/Q2/Q2);  // in unit of nb/GeV2
+	//return 3.8809e5 * 0; //// the transverse component can be ignored at very small |t| and high Q2
 }
 //// return cross-section in the unit of nb/GeV^2.
 double PionExculsiveElectroproduction::dsigmaTT(){

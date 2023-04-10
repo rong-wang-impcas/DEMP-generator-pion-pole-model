@@ -291,7 +291,16 @@ double PionExculsiveElectroproduction::dsigmaL(){
 }
 //// return cross-section in the unit of nb/GeV^2.
 double PionExculsiveElectroproduction::dsigmaT(){
-	return 1000 * ( 86.013/Q2/Q2/Q2/Q2 + 0.57*(-t)/pow(-t+mpi*mpi,2) - 0.57*0.408/pow(0.408+mpi*mpi,2) ) / pow(W2-mN*mN, 2)*3.90;
+	double gamma2 = 4*xB*xB*mN*mN/Q2;
+	double ratio_ToL = -gamma2*Q2*Q2;
+	ratio_ToL += ( 4*xB*t-4*t-2*mpi*mpi*gamma2-2*gamma2*t )*Q2;
+	ratio_ToL += -(1+gamma2) * pow(mpi*mpi-t,  2);
+	ratio_ToL += pow(2*xB*t-t+mpi*mpi,  2);
+	ratio_ToL /= pow(Q2+2*xB*t-t+mpi*mpi,  2);
+	ratio_ToL *= 0.5;
+	return ratio_ToL * dsigmaL();  //// from Tianbo LIU and Zihan YU 
+
+	return 1000 * ( 86.013/Q2/Q2/Q2/Q2 + 0.57*(-t)/pow(-t+mpi*mpi,2) - 0.57*0.408/pow(0.408+mpi*mpi,2) )  / pow(W2-mN*mN, 2)*12.266929;
 	return 1000 * (0.74/Q2 + 1.25/Q2/Q2 + 0.57*(-t)/pow(-t+mpi*mpi, 2) )   / pow(W2-mN*mN, 2)*pow(1.95*1.95-mN*mN, 2);  // in unit of nb/GeV2
 	return 1000 * (4.5/Q2 + 2.0/Q2/Q2);  // in unit of nb/GeV2
 	//return 3.8809e5 * 0; //// the transverse component can be ignored at very small |t| and high Q2

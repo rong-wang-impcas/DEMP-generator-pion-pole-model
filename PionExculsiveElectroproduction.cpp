@@ -297,7 +297,7 @@ double PionExculsiveElectroproduction::dsigmaT(){
 	ratio_ToL += -(1+gamma2) * pow(mpi*mpi-t,  2);
 	ratio_ToL += pow(2*xB*t-t+mpi*mpi,  2);
 	ratio_ToL /= pow(Q2+2*xB*t-t+mpi*mpi,  2);
-	ratio_ToL *= 0.5;
+	//ratio_ToL *= 0.5;
 	return ratio_ToL * dsigmaL();  //// from Tianbo LIU and Zihan YU 
 
 	return 1000 * ( 86.013/Q2/Q2/Q2/Q2 + 0.57*(-t)/pow(-t+mpi*mpi,2) - 0.57*0.408/pow(0.408+mpi*mpi,2) )  / pow(W2-mN*mN, 2)*12.266929;

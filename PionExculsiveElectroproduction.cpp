@@ -206,8 +206,14 @@ void PionExculsiveElectroproduction::MakeROOTFile(char *filename){
 	tree->Branch("neut_out", "TLorentzVector", neut_out);
 	tree->Branch("pip_out" , "TLorentzVector", pip_out);
 }
-void PionExculsiveElectroproduction::SetOutputFileName(char *filename){
+void PionExculsiveElectroproduction::SetOutputFileName(char filename[]){
 	strcpy(strFileName, filename);
+}
+//void PionExculsiveElectroproduction::SetOutputFileName(string filename){
+//	strcpy(strFileName, filename.c_str());
+//}
+void PionExculsiveElectroproduction::SetOutputFileName(TString filename){
+	strcpy(strFileName, filename.Data());
 }
 
 void PionExculsiveElectroproduction::SetElecBeamEnergy(double ebeamenergy){

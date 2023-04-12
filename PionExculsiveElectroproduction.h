@@ -1,12 +1,15 @@
 #ifndef _PionExculsiveElectroproduction_H
 #define _PionExculsiveElectroproduction_H 1
 
+#include<string.h>
+
 #include"TRandom3.h"
 #include"TFile.h"
 #include"TTree.h"
 #include"TLorentzVector.h"
 #include"TVector3.h"
 #include"TGenPhaseSpace.h"
+#include"TString.h"
 
 #include"KineCal.h"
 
@@ -20,7 +23,9 @@ class PionExculsiveElectroproduction{
 		/// the function to generate and dump N events into root file
 		int Generate(int N);
 
-		void SetOutputFileName(char *filename);
+		void SetOutputFileName(char filename[]);
+		//void SetOutputFileName(string filename);
+		void SetOutputFileName(TString filename);
 
 		//// set beam energies and crossing angle
 		void SetElecBeamEnergy(double ebeamenergy);

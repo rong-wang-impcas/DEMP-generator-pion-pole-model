@@ -16,7 +16,9 @@ int test(){
 	demp_pion.SetxBmax(0.8);
 	demp_pion.SetxBmin(0.001);
 
-	char filename[50] = "DEMP-pion-pole-at-EicC.root";
+	//char filename[50] = "DEMP-pion-pole-at-EicC.root";
+	//demp_pion.SetOutputFileName(filename);
+	TString filename = "DEMP-pion-pole-at-EicC.root";
 	demp_pion.SetOutputFileName(filename); 
 
 	demp_pion.SetElecBeamEnergy(3.5);

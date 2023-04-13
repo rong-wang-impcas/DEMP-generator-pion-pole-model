@@ -334,6 +334,20 @@ double PionExculsiveElectroproduction::dsigmaLT(){
 
 
 
+//// get the ratio of sigma_T over sigma_L
+double PionExculsiveElectroproduction::GetRatioToL(){
+	double gamma2 = 4*xB*xB*mN*mN/Q2;
+	double ratio_ToL = -gamma2*Q2*Q2;
+	ratio_ToL += ( 4*xB*t-4*t-2*mpi*mpi*gamma2-2*gamma2*t )*Q2;
+	ratio_ToL += -(1+gamma2) * pow(mpi*mpi-t,  2);
+	ratio_ToL += pow(2*xB*t-t+mpi*mpi,  2);
+	ratio_ToL /= pow(Q2+2*xB*t-t+mpi*mpi,  2);
+	//ratio_ToL *= 0.5;
+	//
+	return ratio_ToL;
+}
+
+
 
 //// set sampling ranges
 void PionExculsiveElectroproduction::SetxBmin(double min){xBmin = min;}

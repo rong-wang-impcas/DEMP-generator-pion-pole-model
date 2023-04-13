@@ -73,6 +73,8 @@ class PionExculsiveElectroproduction{
 		double dsigmaTT();
 		double dsigmaLT();
 
+		double GetRatioToL();
+
 	private:
 		double me;
 		double mpi;

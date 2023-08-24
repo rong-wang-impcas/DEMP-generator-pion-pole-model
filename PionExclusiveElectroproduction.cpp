@@ -1,4 +1,4 @@
-#include"PionExculsiveElectroproduction.h"
+#include"PionExclusiveElectroproduction.h"
 
 #include<iostream>
 #include<string.h>
@@ -8,7 +8,7 @@
 using namespace std;
 
 
-PionExculsiveElectroproduction::PionExculsiveElectroproduction(){
+PionExclusiveElectroproduction::PionExclusiveElectroproduction(){
 	cout<<"****EicC Meson Form Factor Project"<<endl;
 	cout<<"****Coding issues, contact rwang@impcas.ac.cn"<<endl;
 	cout<<endl<<endl;
@@ -76,7 +76,7 @@ PionExculsiveElectroproduction::PionExculsiveElectroproduction(){
 	epsilon = kine->calEpsilon(y, Q2, s);
 
 }
-PionExculsiveElectroproduction::~PionExculsiveElectroproduction(){
+PionExclusiveElectroproduction::~PionExclusiveElectroproduction(){
 	//tree->Write();
 	//fout->Write();
 	//fout->Close();
@@ -92,7 +92,7 @@ PionExculsiveElectroproduction::~PionExculsiveElectroproduction(){
 	//delete neut_out;
 }
 
-int PionExculsiveElectroproduction::Generate(int N = 20000){
+int PionExclusiveElectroproduction::Generate(int N = 20000){
 
 	MakeROOTFile(strFileName);
 
@@ -194,7 +194,7 @@ int PionExculsiveElectroproduction::Generate(int N = 20000){
 }
 
 //// Create a ROOT file and a TTree.
-void PionExculsiveElectroproduction::MakeROOTFile(char *filename){
+void PionExclusiveElectroproduction::MakeROOTFile(char *filename){
 	//// create the output file and the output TTree
 	cout<<"    Creating the output file: "<<filename<<endl;
 	fout = new TFile(filename,"recreate");
@@ -212,17 +212,17 @@ void PionExculsiveElectroproduction::MakeROOTFile(char *filename){
 	tree->Branch("neut_out", "TLorentzVector", neut_out);
 	tree->Branch("pip_out" , "TLorentzVector", pip_out);
 }
-void PionExculsiveElectroproduction::SetOutputFileName(char filename[]){
+void PionExclusiveElectroproduction::SetOutputFileName(char filename[]){
 	strcpy(strFileName, filename);
 }
-//void PionExculsiveElectroproduction::SetOutputFileName(string filename){
+//void PionExclusiveElectroproduction::SetOutputFileName(string filename){
 //	strcpy(strFileName, filename.c_str());
 //}
-void PionExculsiveElectroproduction::SetOutputFileName(TString filename){
+void PionExclusiveElectroproduction::SetOutputFileName(TString filename){
 	strcpy(strFileName, filename.Data());
 }
 
-void PionExculsiveElectroproduction::SetElecBeamEnergy(double ebeamenergy){
+void PionExclusiveElectroproduction::SetElecBeamEnergy(double ebeamenergy){
 	if(ebeamenergy<0.001){cout<<"Error: electron beam energy is too small!!!"<<endl; return;}
 	if(ebeamenergy>1e6){cout<<"Error: electron beam energy is too high!!!"<<endl; return;}
 	eBeamE = ebeamenergy;
@@ -236,8 +236,8 @@ void PionExculsiveElectroproduction::SetElecBeamEnergy(double ebeamenergy){
 	eBeamENRest = eBeam->E();
 	eBeam->Boost(*BoostToEIC);
 }
-double PionExculsiveElectroproduction::GetElecBeamEnergy(){return eBeamE;}
-void PionExculsiveElectroproduction::SetProtBeamEnergy(double pbeamenergy){
+double PionExclusiveElectroproduction::GetElecBeamEnergy(){return eBeamE;}
+void PionExclusiveElectroproduction::SetProtBeamEnergy(double pbeamenergy){
 	if(pbeamenergy<1){cout<<"Error: proton beam energy is too small!!!"<<endl; return;}
 	if(pbeamenergy>1e6){cout<<"Error: proton beam energy is too high!!!"<<endl; return;}
 	pBeamE = pbeamenergy;
@@ -251,9 +251,9 @@ void PionExculsiveElectroproduction::SetProtBeamEnergy(double pbeamenergy){
 	eBeamENRest = eBeam->E();
 	eBeam->Boost(*BoostToEIC);
 }
-double PionExculsiveElectroproduction::GetProtBeamEnergy(){return pBeamE;}
+double PionExclusiveElectroproduction::GetProtBeamEnergy(){return pBeamE;}
 //// set beam crossing angle
-void PionExculsiveElectroproduction::SetBeamCrossAngle(double _angle){
+void PionExclusiveElectroproduction::SetBeamCrossAngle(double _angle){
 	beam_cross_angle = _angle;
 	eBeam->SetXYZT(0, 0, sqrt(eBeamE*eBeamE-me*me), eBeamE);
 	double p_pz = cos(PI-beam_cross_angle) * sqrt(pBeamE*pBeamE-mN*mN);
@@ -265,24 +265,24 @@ void PionExculsiveElectroproduction::SetBeamCrossAngle(double _angle){
 	eBeamENRest = eBeam->E();
 	eBeam->Boost(*BoostToEIC);
 }
-double PionExculsiveElectroproduction::GetBeamCrossAngle(){return beam_cross_angle;}
+double PionExclusiveElectroproduction::GetBeamCrossAngle(){return beam_cross_angle;}
 
 
 
 
 
 //// the model of pion form factor
-double PionExculsiveElectroproduction::FF_pion(double _Q2){
+double PionExclusiveElectroproduction::FF_pion(double _Q2){
 	return 1.0 / (1.0 + _Q2/cutoff_pi/cutoff_pi);
 }
 //// return cross-section in the unit of nb/GeV^4.
-double PionExculsiveElectroproduction::d4sigma_dQ2dxBdtdPhi(double _Q2, double _xB, double _t, double _Phi)
+double PionExclusiveElectroproduction::d4sigma_dQ2dxBdtdPhi(double _Q2, double _xB, double _t, double _Phi)
 {
 	//// No implementation of the Phi-dependence yet
 	return d3sigma_dQ2dxBdt(_Q2, _xB, _t) / 2.0 / PI;
 }
 //// return cross-section in the unit of nb/GeV^4.
-double PionExculsiveElectroproduction::d3sigma_dQ2dxBdt(double _Q2, double _xB, double _t)
+double PionExclusiveElectroproduction::d3sigma_dQ2dxBdt(double _Q2, double _xB, double _t)
 {
 	double flux = PhotonFlux(y, _xB, epsilon, _Q2); 
 	/// in the natural unit, i.e., GeV^-6
@@ -290,18 +290,18 @@ double PionExculsiveElectroproduction::d3sigma_dQ2dxBdt(double _Q2, double _xB, 
 	/// return in the unit of nb/GeV^4
 	return sigma;
 }
-double PionExculsiveElectroproduction::N_factor(double _W2, double _Q2){
+double PionExclusiveElectroproduction::N_factor(double _W2, double _Q2){
 	double W2_mN2 = _W2 - mN*mN;
 	return 32*PI*W2_mN2 * sqrt(W2_mN2*W2_mN2 + _Q2*_Q2 + 2*_Q2*(W2+mN*mN) );
 }
-double PionExculsiveElectroproduction::g_piNN(double _t){
+double PionExclusiveElectroproduction::g_piNN(double _t){
 	return 13.4 * (cutoff_pi*cutoff_pi - mpi*mpi) / (cutoff_pi*cutoff_pi - _t);
 }
-double PionExculsiveElectroproduction::PhotonFlux(double _y, double _xB, double _epsilon, double _Q2){
+double PionExclusiveElectroproduction::PhotonFlux(double _y, double _xB, double _epsilon, double _Q2){
 	return alpha*_y*_y*(1-_xB)/2.0/PI/_xB/(1-_epsilon)/_Q2; 
 }
 //// return cross-section in the unit of nb/GeV^2.
-double PionExculsiveElectroproduction::dsigmaL(){
+double PionExclusiveElectroproduction::dsigmaL(){
 	double nfactor = N_factor(W2, Q2);
 	double ffpion = FF_pion(Q2);
 	double gpinn = g_piNN(t);
@@ -310,7 +310,7 @@ double PionExculsiveElectroproduction::dsigmaL(){
 	return 3.8809e5 * 16*PI*alpha * gpinn*gpinn * pipole * Q2 * ffpion*ffpion / nfactor;
 }
 //// return cross-section in the unit of nb/GeV^2.
-double PionExculsiveElectroproduction::dsigmaT(){
+double PionExclusiveElectroproduction::dsigmaT(){
 	double gamma2 = 4*xB*xB*mN*mN/Q2;
 	double ratio_ToL = -gamma2*Q2*Q2;
 	ratio_ToL += ( 4*xB*t-4*t-2*mpi*mpi*gamma2-2*gamma2*t )*Q2;
@@ -330,18 +330,18 @@ double PionExculsiveElectroproduction::dsigmaT(){
 	//return 3.8809e5 * 0; //// the transverse component can be ignored at very small |t| and high Q2
 }
 //// return cross-section in the unit of nb/GeV^2.
-double PionExculsiveElectroproduction::dsigmaTT(){
+double PionExclusiveElectroproduction::dsigmaTT(){
 	return 3.8809e5 * 0;
 }
 //// return cross-section in the unit of nb/GeV^2.
-double PionExculsiveElectroproduction::dsigmaLT(){
+double PionExclusiveElectroproduction::dsigmaLT(){
 	return 3.8809e5 * 0;
 }
 
 
 
 //// get the ratio of sigma_T over sigma_L
-double PionExculsiveElectroproduction::GetRatioToL(){
+double PionExclusiveElectroproduction::GetRatioToL(){
 	double gamma2 = 4*xB*xB*mN*mN/Q2;
 	double ratio_ToL = -gamma2*Q2*Q2;
 	ratio_ToL += ( 4*xB*t-4*t-2*mpi*mpi*gamma2-2*gamma2*t )*Q2;
@@ -356,49 +356,49 @@ double PionExculsiveElectroproduction::GetRatioToL(){
 
 
 //// set sampling ranges
-void PionExculsiveElectroproduction::SetxBmin(double min){xBmin = min;}
-void PionExculsiveElectroproduction::SetxBmax(double max){xBmax = max;}
-void PionExculsiveElectroproduction::SetQ2min(double min){Q2min = min;}
-void PionExculsiveElectroproduction::SetQ2max(double max){Q2max = max;}
-void PionExculsiveElectroproduction::SetTmin(double min){Tmin = min;}
-void PionExculsiveElectroproduction::SetTmax(double max){Tmax = max;}
-void PionExculsiveElectroproduction::Setymin(double min){ymin = min;}
-void PionExculsiveElectroproduction::Setymax(double max){ymax = max;}
-int PionExculsiveElectroproduction::SetSamplingMode(int flag){
+void PionExclusiveElectroproduction::SetxBmin(double min){xBmin = min;}
+void PionExclusiveElectroproduction::SetxBmax(double max){xBmax = max;}
+void PionExclusiveElectroproduction::SetQ2min(double min){Q2min = min;}
+void PionExclusiveElectroproduction::SetQ2max(double max){Q2max = max;}
+void PionExclusiveElectroproduction::SetTmin(double min){Tmin = min;}
+void PionExclusiveElectroproduction::SetTmax(double max){Tmax = max;}
+void PionExclusiveElectroproduction::Setymin(double min){ymin = min;}
+void PionExclusiveElectroproduction::Setymax(double max){ymax = max;}
+int PionExclusiveElectroproduction::SetSamplingMode(int flag){
 	sampling_flag = flag;
 	return sampling_flag;
 }
-int PionExculsiveElectroproduction::SetQuiet(int flag){quiet_flag = flag; return quiet_flag;}
+int PionExclusiveElectroproduction::SetQuiet(int flag){quiet_flag = flag; return quiet_flag;}
 
 
 
 
-double PionExculsiveElectroproduction::GetQ2(){return Q2;}
-double PionExculsiveElectroproduction::GetW2(){return W2;}
-double PionExculsiveElectroproduction::GetxB(){return xB;}
-double PionExculsiveElectroproduction::Gett(){return t;}
-double PionExculsiveElectroproduction::Gety(){return y;}
-double PionExculsiveElectroproduction::Gets(){return s;}
-double PionExculsiveElectroproduction::Getepsilon(){return epsilon;}
-void PionExculsiveElectroproduction::SetQ2(double _Q2){
+double PionExclusiveElectroproduction::GetQ2(){return Q2;}
+double PionExclusiveElectroproduction::GetW2(){return W2;}
+double PionExclusiveElectroproduction::GetxB(){return xB;}
+double PionExclusiveElectroproduction::Gett(){return t;}
+double PionExclusiveElectroproduction::Gety(){return y;}
+double PionExclusiveElectroproduction::Gets(){return s;}
+double PionExclusiveElectroproduction::Getepsilon(){return epsilon;}
+void PionExclusiveElectroproduction::SetQ2(double _Q2){
 	Q2 = _Q2;
 	xB = Q2 / (W2+Q2-mN*mN);
 	y = Q2 / xB / (s-mN*mN);
 	epsilon = kine->calEpsilon(y, Q2, s);
 }
-void PionExculsiveElectroproduction::SetW2(double _W2){
+void PionExclusiveElectroproduction::SetW2(double _W2){
 	W2 = _W2;
 	xB = Q2 / (W2+Q2-mN*mN);
 	y = Q2 / xB / (s-mN*mN);
 	epsilon = kine->calEpsilon(y, Q2, s);
 }
-void PionExculsiveElectroproduction::SetxB(double _xB){
+void PionExclusiveElectroproduction::SetxB(double _xB){
 	xB = _xB;
 	W2 = (1.0/xB-1)*Q2 + mN*mN;
 	y = Q2 / xB / (s-mN*mN);
 	epsilon = kine->calEpsilon(y, Q2, s);
 }
-void PionExculsiveElectroproduction::Sett(double _t){t=_t;}
+void PionExclusiveElectroproduction::Sett(double _t){t=_t;}
 
 
 

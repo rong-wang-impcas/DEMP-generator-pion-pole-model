@@ -1,13 +1,13 @@
 #include"KineCal.h"
-#include"PionExculsiveElectroproduction.h"
+#include"PionExclusiveElectroproduction.h"
 
 #include"KineCal.cpp"
-#include"PionExculsiveElectroproduction.cpp"
+#include"PionExclusiveElectroproduction.cpp"
 
 
 int test(){
 
-	PionExculsiveElectroproduction demp_pion;
+	PionExclusiveElectroproduction demp_pion;
 
 	demp_pion.SetTmax(0.7);
 	demp_pion.SetTmin(0.01);

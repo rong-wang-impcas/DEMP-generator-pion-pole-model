@@ -1,5 +1,5 @@
-#ifndef _PionExculsiveElectroproduction_H
-#define _PionExculsiveElectroproduction_H 1
+#ifndef _PionExclusiveElectroproduction_H
+#define _PionExclusiveElectroproduction_H 1
 
 #include<string.h>
 
@@ -14,11 +14,11 @@
 #include"KineCal.h"
 
 
-class PionExculsiveElectroproduction{
+class PionExclusiveElectroproduction{
 
 	public:
-		PionExculsiveElectroproduction();
-		~PionExculsiveElectroproduction();
+		PionExclusiveElectroproduction();
+		~PionExclusiveElectroproduction();
 
 		/// the function to generate and dump N events into root file
 		int Generate(int N);

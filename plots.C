@@ -1,4 +1,9 @@
 {
+	/*
+	  This code is for plotting the kinematics of 
+	  the output file NOT in the sampling mode!!!
+	*/
+
 	gStyle->SetOptStat(0);
 	gStyle->SetNdivisions(505,"XY");
 

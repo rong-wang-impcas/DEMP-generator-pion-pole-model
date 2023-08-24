@@ -16,6 +16,8 @@ PionExculsiveElectroproduction::PionExculsiveElectroproduction(){
 	cout<<"    Exclusive process: e p --> e n pi^+"<<endl;
 
 	beam_cross_angle = 0.05; //// 50 mrad = 0.05rad
+	sampling_flag = 0;
+	max_d4sigma = 7;
 	///// the kinematical ranges for MC sampling
 	xBmin = 0.0001;
 	xBmax = 0.95;
@@ -170,8 +172,11 @@ int PionExculsiveElectroproduction::Generate(int N = 20000){
 		d4sigma = d4sigma_dQ2dxBdtdPhi(Q2, xB, t, 0);
 		d3sigma = d3sigma_dQ2dxBdt(Q2, xB, t);
 
+		if(sampling_flag)
+			if(d4sigma < random->Uniform(0,max_d4sigma))continue;
 		tree->Fill();
 		i++;
+		if(i%1000==0)cout<<i<<" events"<<endl;
 	}
 
 	eBeam->Boost(*BoostToEIC);   /// the elec. beam boost back to the collider frame!!!
@@ -358,7 +363,10 @@ void PionExculsiveElectroproduction::SetTmin(double min){Tmin = min;}
 void PionExculsiveElectroproduction::SetTmax(double max){Tmax = max;}
 void PionExculsiveElectroproduction::Setymin(double min){ymin = min;}
 void PionExculsiveElectroproduction::Setymax(double max){ymax = max;}
-
+int PionExculsiveElectroproduction::SetSamplingMode(int flag){
+	sampling_flag = flag;
+	return sampling_flag;
+}
 
 
 

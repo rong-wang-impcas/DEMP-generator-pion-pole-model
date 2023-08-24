@@ -26,7 +26,8 @@ int test(){
 	//demp_pion.SetBeamCrossAngle(0.0);
 	demp_pion.SetBeamCrossAngle(0.05);
 
-	demp_pion.Generate(1000000);
+	demp_pion.SetSamplingMode(1);
+	demp_pion.Generate(200000);
 
 	//cout<<demp_pion.GetElecBeamEnergy()<<"  "<<demp_pion.GetProtBeamEnergy()<<"  "<<demp_pion.GetBeamCrossAngle()<<endl;
 

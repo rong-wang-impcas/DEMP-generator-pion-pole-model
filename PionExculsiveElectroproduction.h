@@ -63,6 +63,7 @@ class PionExculsiveElectroproduction{
 		void SetW2(double);
 		void SetxB(double);
 		void Sett(double);
+		int SetSamplingMode(int flag);
 
 
 		double N_factor(double _W2, double _Q2);
@@ -76,6 +77,9 @@ class PionExculsiveElectroproduction{
 		double GetRatioToL();
 
 	private:
+		int sampling_flag;
+		double max_d4sigma;
+
 		double me;
 		double mpi;
 		double mN;

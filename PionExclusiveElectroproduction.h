@@ -2,6 +2,7 @@
 #define _PionExclusiveElectroproduction_H 1
 
 #include<string.h>
+#include<fstream>
 
 #include"TRandom3.h"
 #include"TFile.h"
@@ -64,6 +65,7 @@ class PionExclusiveElectroproduction{
 		void SetxB(double);
 		void Sett(double);
 		int SetSamplingMode(int flag);
+		int SetEvtFileOutput(int flag);
 		int SetQuiet(int flag);
 
 
@@ -79,6 +81,7 @@ class PionExclusiveElectroproduction{
 
 	private:
 		int sampling_flag;
+		int evtfile_flag;
 		int quiet_flag;
 		double max_d4sigma;
 
@@ -130,6 +133,7 @@ class PionExclusiveElectroproduction{
 
 		TRandom3 *random;
 		TFile *fout;
+		ofstream *evtfile;
 		TTree *tree;
 		KineCal *kine;
 
@@ -138,6 +142,7 @@ class PionExclusiveElectroproduction{
 		char *strFileName;
 
 		void MakeROOTFile(char *filename);
+		void MakeEvtFile(char *filename);
 
 };
 

@@ -17,6 +17,7 @@ PionExclusiveElectroproduction::PionExclusiveElectroproduction(){
 
 	beam_cross_angle = 0.05; //// 50 mrad = 0.05rad
 	sampling_flag = 0;
+	evtfile_flag = 0;
 	quiet_flag = 0;
 	max_d4sigma = 7;
 	///// the kinematical ranges for MC sampling
@@ -95,6 +96,7 @@ PionExclusiveElectroproduction::~PionExclusiveElectroproduction(){
 int PionExclusiveElectroproduction::Generate(int N = 20000){
 
 	MakeROOTFile(strFileName);
+	if(evtfile_flag)MakeEvtFile(strFileName);
 
 	cout<<"    To generate "<<N<<" events..."<<endl;
 
@@ -176,6 +178,23 @@ int PionExclusiveElectroproduction::Generate(int N = 20000){
 		if(sampling_flag)
 			if(d4sigma < random->Uniform(0,max_d4sigma))continue;
 		tree->Fill();
+		if(evtfile_flag){
+			(*evtfile)<< i <<"\t"<<3<<endl;
+			(*evtfile)<<"  "<<"N\t"<<"Id\t"<<"Ist\t"<<"M1\t"<<"M2\t"<<"DF\t"<<"DL\t";
+			(*evtfile)<<"px\t"<<"py\t"<<"pz\t"<<"E\t"<<"t\t"<<"x\t"<<"y\t"<<"z"<<endl;
+
+			(*evtfile)<<"  "<<0<<"\t"<<11<<"\t"<<1<<"\t"<<0<<"\t"<<0<<"\t"<<-1<<"\t"<<-1<<"\t";
+			(*evtfile)<<elec_out->Px()<<" "<<elec_out->Py()<<" "<<-elec_out->Pz()<<" "<<elec_out->E()<<" ";
+			(*evtfile)<<0<<" "<<0<<" "<<0<<" "<<0<<endl;
+
+			(*evtfile)<<"  "<<1<<"\t"<<2112<<"\t"<<1<<"\t"<<0<<"\t"<<0<<"\t"<<-1<<"\t"<<-1<<"\t";
+			(*evtfile)<<neut_out->Px()<<" "<<neut_out->Py()<<" "<<-neut_out->Pz()<<" "<<neut_out->E()<<" ";
+			(*evtfile)<<0<<" "<<0<<" "<<0<<" "<<0<<endl;
+
+			(*evtfile)<<"  "<<2<<"\t"<<211<<"\t"<<1<<"\t"<<0<<"\t"<<0<<"\t"<<-1<<"\t"<<-1<<"\t";
+			(*evtfile)<<pip_out->Px()<<" "<<pip_out->Py()<<" "<<-pip_out->Pz()<<" "<<pip_out->E()<<" ";
+			(*evtfile)<<0<<" "<<0<<" "<<0<<" "<<0<<endl;
+		}
 		i++;
 		if(!quiet_flag) if(i%1000==0) cout<<i<<" events"<<endl;
 	}
@@ -211,6 +230,13 @@ void PionExclusiveElectroproduction::MakeROOTFile(char *filename){
 	tree->Branch("elec_out", "TLorentzVector", elec_out);
 	tree->Branch("neut_out", "TLorentzVector", neut_out);
 	tree->Branch("pip_out" , "TLorentzVector", pip_out);
+}
+void PionExclusiveElectroproduction::MakeEvtFile(char *filename){
+	string evtfilename(filename);
+	evtfilename += ".evt";
+	//// create the output file and the output TTree
+	cout<<"    Creating the output evt file: "<<evtfilename<<endl;
+	evtfile = new ofstream(evtfilename);
 }
 void PionExclusiveElectroproduction::SetOutputFileName(char filename[]){
 	strcpy(strFileName, filename);
@@ -367,6 +393,10 @@ void PionExclusiveElectroproduction::Setymax(double max){ymax = max;}
 int PionExclusiveElectroproduction::SetSamplingMode(int flag){
 	sampling_flag = flag;
 	return sampling_flag;
+}
+int PionExclusiveElectroproduction::SetEvtFileOutput(int flag){
+	evtfile_flag = flag;
+	return evtfile_flag;
 }
 int PionExclusiveElectroproduction::SetQuiet(int flag){quiet_flag = flag; return quiet_flag;}
 

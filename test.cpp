@@ -20,6 +20,7 @@ int test(){
 	//demp_pion.SetOutputFileName(filename);
 	TString filename = "DEMP-pion-pole-at-EicC.root";
 	demp_pion.SetOutputFileName(filename); 
+	demp_pion.SetEvtFileOutput(1); 
 
 
 	demp_pion.SetElecBeamEnergy(3.5);
@@ -29,7 +30,7 @@ int test(){
 
 	//demp_pion.SetQuiet(1);
 	demp_pion.SetSamplingMode(1);
-	demp_pion.Generate(200000);
+	demp_pion.Generate(20000);
 
 	//cout<<demp_pion.GetElecBeamEnergy()<<"  "<<demp_pion.GetProtBeamEnergy()<<"  "<<demp_pion.GetBeamCrossAngle()<<endl;
 

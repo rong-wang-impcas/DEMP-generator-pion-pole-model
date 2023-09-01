@@ -183,15 +183,15 @@ int PionExclusiveElectroproduction::Generate(int N = 20000){
 			(*evtfile)<<"  "<<"N\t"<<"Id\t"<<"Ist\t"<<"M1\t"<<"M2\t"<<"DF\t"<<"DL\t";
 			(*evtfile)<<"px\t"<<"py\t"<<"pz\t"<<"E\t"<<"t\t"<<"x\t"<<"y\t"<<"z"<<endl;
 
-			(*evtfile)<<"  "<<0<<"\t"<<11<<"\t"<<1<<"\t"<<0<<"\t"<<0<<"\t"<<-1<<"\t"<<-1<<"\t";
+			(*evtfile)<<"  "<<0<<"\t"<<11<<"\t"<<1<<"\t"<<-1<<"\t"<<-1<<"\t"<<-1<<"\t"<<-1<<"\t";
 			(*evtfile)<<elec_out->Px()<<" "<<elec_out->Py()<<" "<<-elec_out->Pz()<<" "<<elec_out->E()<<" ";
 			(*evtfile)<<0<<" "<<0<<" "<<0<<" "<<0<<endl;
 
-			(*evtfile)<<"  "<<1<<"\t"<<2112<<"\t"<<1<<"\t"<<0<<"\t"<<0<<"\t"<<-1<<"\t"<<-1<<"\t";
+			(*evtfile)<<"  "<<1<<"\t"<<2112<<"\t"<<1<<"\t"<<-1<<"\t"<<-1<<"\t"<<-1<<"\t"<<-1<<"\t";
 			(*evtfile)<<neut_out->Px()<<" "<<neut_out->Py()<<" "<<-neut_out->Pz()<<" "<<neut_out->E()<<" ";
 			(*evtfile)<<0<<" "<<0<<" "<<0<<" "<<0<<endl;
 
-			(*evtfile)<<"  "<<2<<"\t"<<211<<"\t"<<1<<"\t"<<0<<"\t"<<0<<"\t"<<-1<<"\t"<<-1<<"\t";
+			(*evtfile)<<"  "<<2<<"\t"<<211<<"\t"<<1<<"\t"<<-1<<"\t"<<-1<<"\t"<<-1<<"\t"<<-1<<"\t";
 			(*evtfile)<<pip_out->Px()<<" "<<pip_out->Py()<<" "<<-pip_out->Pz()<<" "<<pip_out->E()<<" ";
 			(*evtfile)<<0<<" "<<0<<" "<<0<<" "<<0<<endl;
 		}
